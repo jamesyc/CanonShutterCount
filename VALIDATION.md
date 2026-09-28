@@ -22,10 +22,10 @@
 | External SIGINT against CLI process | Six signals; exit 130; no count output; PTP restored and owner unchanged |
 | Forced stop after DCP initialization | SIGKILL left DCP active; user power cycle restored PC Connect; follow-up read remained 11,536 with identical window and owner |
 | Linux/Windows hardware behavior | Unverified |
-| GitHub Actions matrix | All nine jobs passed in run 36425554708 for cb8e1f2 after the cooldown fix; local v0.1.0 metadata changes await their own CI run |
-| Homebrew tap installation | Pending release preparation |
+| GitHub Actions matrix | All nine jobs passed in run 36429690523 for release commit eba4937 |
+| Homebrew tap installation | Pending tap preparation |
 | GPLv3 packaging | Canonical LICENSE and GPL-3.0-only metadata verified in the built wheel |
-| v0.1.0 release contents | Source/wheel audited; GPLv3 text, owner guide, and source fixture provenance present; private logs/research binaries excluded; checksums saved; not published |
+| v0.1.0 release contents | Source/wheel audited; GPLv3 text, owner guide, and source fixture provenance present; private logs/research binaries excluded; published as v0.1.0; remote tag and asset digests verified against the clean-commit build |
 | PC Connect restoration investigation | Archived by user decision; application intentionally exits to PTP |
 | Counter rollover snapshots | Upper 44 → 45, slot 4 → 5 observed; exact 0xff sample not captured |
 

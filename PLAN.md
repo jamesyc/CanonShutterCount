@@ -14,19 +14,19 @@ for the older-camera decoders. The previous 61-test
 baseline also passed fresh source-archive installations outside the checkout. Live interruption
 and stale-session checks are recorded in [VALIDATION.md](VALIDATION.md).
 
-The current task is **preparing release v0.1.0**, at the user's request.
+Release **v0.1.0 is published**. The next packaging step is the Homebrew tap.
 Offline decoding is implemented for 20D, 30D, 400D, 300D, and 10D;
 new-model live entry/read/cleanup remains unimplemented and gated. No dedicated
 20Da layout was established. None of these bodies is available for testing.
 
-The GPLv3 license and CI configuration fix were pushed through `cb8e1f2`.
-All nine remote CI jobs passed in run `36425554708`. Version metadata and the
-lockfile are now updated locally to `0.1.0`, with release notes in `CHANGELOG.md`.
-Source and wheel artifacts, `SHA256SUMS`, and release-note text are prepared under
-`dist/`. Fresh artifact installations passed 67 tests on Python 3.9/3.14. The
-release-preparation changes still need to be committed/pushed and checked by CI
-before tagging and publication. No release or tap has been published. Older-model
-live support and Linux/Windows camera validation remain separate unfinished work.
+Release commit `eba493703acdb86082012af0dd885f3fbc10ef6f` passed all nine
+remote CI jobs in run `36429690523` and is tagged `v0.1.0`.
+The [published release](https://github.com/jamesyc/CanonShutterCount/releases/tag/v0.1.0)
+includes the source archive, wheel, and `SHA256SUMS`. Artifacts were built from a
+clean archive of that commit; fresh installations passed all 67 tests on Python
+3.9/3.14, and published asset digests match the verified local files.
+No Homebrew tap has been published. Older-model live support and Linux/Windows
+camera validation remain separate unfinished work.
 
 ## Requirements and accepted decisions
 
@@ -140,7 +140,7 @@ owner → decode and report.
   Tell the user when its implementation is ready for manual testing; offline
   decoding alone does not meet that milestone.
 
-## Current phase: release preparation
+## Current phase: Homebrew tap preparation
 
 1. **Choose the project license and audit release contents.**
    - [x] Obtain the user's license choice and add the GPLv3 license file/package metadata (`GPL-3.0-only`); verified in the built wheel.
@@ -154,19 +154,19 @@ owner → decode and report.
    - [x] Commit/push the GPLv3 metadata and project-local cooldown setting; run `36425554708` passed for `cb8e1f2`.
    - [x] Resolve the observed CI configuration failure and verify the installed artifacts on all nine runners.
      Passing offline CI does not establish Linux/Windows camera support.
-   - [ ] Commit/push the v0.1.0 preparation changes and verify that commit in CI before tagging it.
+   - [x] Commit/push the v0.1.0 preparation changes; all nine CI jobs passed for `eba4937` in run `36429690523`.
 3. **Create a versioned release and prepare the Homebrew tap.**
    - [x] Choose v0.1.0, update metadata/lockfile, and write `CHANGELOG.md` and `dist/RELEASE_NOTES.md`.
    - [x] Build/audit `dist/canonshuttercount-0.1.0.tar.gz` and `dist/canonshuttercount-0.1.0-py3-none-any.whl`; record their hashes in `dist/SHA256SUMS`.
    - [x] Install the source archive under Python 3.9.25 and wheel under Python 3.14.7 outside the checkout; run all 67 tests from the source archive and verify version, decoder, owner guide, and backend loading.
-   - [ ] Tag the verified release commit as v0.1.0 and publish the source/wheel/checksum assets. The resulting public asset URL is needed for the tap formula.
+   - [x] Tag the verified release commit as v0.1.0 and publish the source/wheel/checksum assets; remote tag and asset digests verified.
    - [ ] Write the tap formula with Homebrew's supported Python, libusb, and a checksummed
      PyUSB resource installed in an isolated environment.
    - [ ] Select the formula's native library through `CANONSHUTTERCOUNT_LIBUSB` when
      needed, rather than assuming a particular Homebrew prefix.
    - [ ] Test formula installation, the installed decoder/command, and native backend
      loading without a camera. Verify that the owner-recovery guide is installed.
-   - [ ] Publish the reviewed release/tap. A later homebrew/core submission is separate.
+   - [ ] Publish the reviewed tap. A later homebrew/core submission is separate.
 4. **Expand hardware validation when those environments are available.**
    - [ ] Test the actual 5D from both modes on Linux, including scoped USB permissions
      for `3101`, `3102`, and `3086`.
@@ -174,9 +174,8 @@ owner → decode and report.
    - [ ] Record OS, architecture, firmware, native backend version, cleanup, and owner
      results before broadening support claims. Additional cameras follow the same rule.
 
-The pushed baseline is green in CI. The next step is to commit/push the prepared
-v0.1.0 changes, verify that commit, then tag and publish the release artifacts.
-Publication has not been performed as part of release preparation.
+The release is published. Next: prepare and test the Homebrew tap formula using
+the published v0.1.0 source archive and its verified checksum.
 
 ## Development and packaging conventions
 
