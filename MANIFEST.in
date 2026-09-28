@@ -1,3 +1,4 @@
 include tools/inspect_firmware.py
+include CHANGELOG.md
 recursive-include tests *.py
-recursive-include tests/fixtures *.json *.log
+recursive-include tests/fixtures *.json *.log *.md

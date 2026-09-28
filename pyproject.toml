@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "canonshuttercount"
-version = "0.1.0.dev0"
+version = "0.1.0"
 description = "Bounded shutter-count reader for the original Canon EOS 5D"
 readme = "README.md"
 license = "GPL-3.0-only"
@@ -17,6 +17,11 @@ exclude-newer = "7 days"
 
 [project.scripts]
 canonshuttercount = "canonshuttercount.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/jamesyc/CanonShutterCount"
+Repository = "https://github.com/jamesyc/CanonShutterCount"
+Issues = "https://github.com/jamesyc/CanonShutterCount/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -14,19 +14,19 @@ for the older-camera decoders. The previous 61-test
 baseline also passed fresh source-archive installations outside the checkout. Live interruption
 and stale-session checks are recorded in [VALIDATION.md](VALIDATION.md).
 
-The next phase is now **older EOS camera support**, at the user's request.
+The current task is **preparing release v0.1.0**, at the user's request.
 Offline decoding is implemented for 20D, 30D, 400D, 300D, and 10D;
 new-model live entry/read/cleanup remains unimplemented and gated. No dedicated
 20Da layout was established. None of these bodies is available for testing.
 
-**Release preparation and Homebrew packaging** follows this work. The implementation
-was committed and pushed as `260d9e5`; package metadata is still `0.1.0.dev0`.
-The user chose GPLv3, now recorded as `GPL-3.0-only` with a license file and package
-metadata. The first remote CI run failed during locked dependency sync because the
-lockfile's seven-day package cooldown existed only in the developer's user config.
-That setting is now explicit in `pyproject.toml`; isolated sync and 67 local tests
-pass. The license/configuration changes need a new commit/push and remote CI rerun.
-No tap formula has been published. Linux and Windows camera behavior remains unverified.
+The GPLv3 license and CI configuration fix were pushed through `cb8e1f2`.
+All nine remote CI jobs passed in run `36425554708`. Version metadata and the
+lockfile are now updated locally to `0.1.0`, with release notes in `CHANGELOG.md`.
+Source and wheel artifacts, `SHA256SUMS`, and release-note text are prepared under
+`dist/`. Fresh artifact installations passed 67 tests on Python 3.9/3.14. The
+release-preparation changes still need to be committed/pushed and checked by CI
+before tagging and publication. No release or tap has been published. Older-model
+live support and Linux/Windows camera validation remain separate unfinished work.
 
 ## Requirements and accepted decisions
 
@@ -126,7 +126,7 @@ owner → decode and report.
 - [x] Configure and run CI: Python 3.9–3.14 on Linux, 3.14 on macOS, and 3.9/3.14 on Windows; native backend loading checks on Linux/macOS. Initial run failed before tests at locked sync; the local configuration fix still needs remote validation.
 - [x] Accept PTP exit from both modes and archive direct PC Connect restoration research.
 
-## Next phase: older EOS support
+## Backlog: older EOS support
 
 - [x] Add offline saved-record decoding for 20D, 30D, 400D, 300D, and 10D with
   synthetic tests and explicit model/firmware selection. Keep the live 5D gate.
@@ -140,23 +140,26 @@ owner → decode and report.
   Tell the user when its implementation is ready for manual testing; offline
   decoding alone does not meet that milestone.
 
-## Following phase: release preparation
+## Current phase: release preparation
 
 1. **Choose the project license and audit release contents.**
    - [x] Obtain the user's license choice and add the GPLv3 license file/package metadata (`GPL-3.0-only`); verified in the built wheel.
-   - [ ] Review source and fixture provenance, documentation, and distribution contents.
-   - [ ] Keep private camera logs, firmware images,
+   - [x] Review release contents and fixture provenance; include the fixture provenance README and changelog in the source archive.
+   - [x] Keep private camera logs, firmware images,
      `.analysis`, virtual environments, caches, and build outputs out of version control
      and published distributions. Keep only the necessary sanitized fixtures.
 2. **Run remote CI on the reviewed implementation.**
    - [x] Commit the application, tests, documentation, configuration, and `uv.lock` (`260d9e5`).
    - [x] Push the implementation and run the configured GitHub Actions matrix (run `36423871650`).
-   - [ ] Commit/push the GPLv3 metadata and project-local cooldown setting, then rerun CI.
-   - [ ] Resolve actual platform failures and verify the installed artifacts on runners.
+   - [x] Commit/push the GPLv3 metadata and project-local cooldown setting; run `36425554708` passed for `cb8e1f2`.
+   - [x] Resolve the observed CI configuration failure and verify the installed artifacts on all nine runners.
      Passing offline CI does not establish Linux/Windows camera support.
+   - [ ] Commit/push the v0.1.0 preparation changes and verify that commit in CI before tagging it.
 3. **Create a versioned release and prepare the Homebrew tap.**
-   - [ ] Choose the first release version, update metadata/lockfile, and write release notes.
-   - [ ] Produce the source release URL and SHA-256 checksum.
+   - [x] Choose v0.1.0, update metadata/lockfile, and write `CHANGELOG.md` and `dist/RELEASE_NOTES.md`.
+   - [x] Build/audit `dist/canonshuttercount-0.1.0.tar.gz` and `dist/canonshuttercount-0.1.0-py3-none-any.whl`; record their hashes in `dist/SHA256SUMS`.
+   - [x] Install the source archive under Python 3.9.25 and wheel under Python 3.14.7 outside the checkout; run all 67 tests from the source archive and verify version, decoder, owner guide, and backend loading.
+   - [ ] Tag the verified release commit as v0.1.0 and publish the source/wheel/checksum assets. The resulting public asset URL is needed for the tap formula.
    - [ ] Write the tap formula with Homebrew's supported Python, libusb, and a checksummed
      PyUSB resource installed in an isolated environment.
    - [ ] Select the formula's native library through `CANONSHUTTERCOUNT_LIBUSB` when
@@ -171,9 +174,9 @@ owner → decode and report.
    - [ ] Record OS, architecture, firmware, native backend version, cleanup, and owner
      results before broadening support claims. Additional cameras follow the same rule.
 
-The immediate release blocker is **passing remote CI** after the configuration fix.
-GPLv3 has been selected. Release publication
-has not been performed as part of development or this plan update.
+The pushed baseline is green in CI. The next step is to commit/push the prepared
+v0.1.0 changes, verify that commit, then tag and publish the release artifacts.
+Publication has not been performed as part of release preparation.
 
 ## Development and packaging conventions
 

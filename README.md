@@ -12,11 +12,10 @@ counter decoding, and recovery behavior. **PC Connect and Print/PTP have passed
 repeated manual reads on the original 5D on macOS:** both initially returned 11,303,
 then repeatedly returned 11,304 after one user-confirmed photo. Counter bytes match
 across modes, PTP was restored, and the owner stayed unchanged; see
-[VALIDATION.md](VALIDATION.md). Both modes intentionally finish in PTP; power-cycle
+[VALIDATION.md](https://github.com/jamesyc/CanonShutterCount/blob/main/VALIDATION.md). Both modes intentionally finish in PTP; power-cycle
 to return to the saved Communication setting when it is PC Connect.
 The result explicitly includes `start_mode`, `end_mode`, and `restored_start_mode`;
-the CLI reports the mode mismatch and power-cycle fallback. Offline firmware
-findings are in [docs/USB_MODE_RESEARCH.md](docs/USB_MODE_RESEARCH.md).
+the CLI reports the mode mismatch and power-cycle fallback.
 The reference prototype's hardware results are documented separately in the fixture
 provenance. Linux and Windows hardware behavior is also unverified.
 
@@ -147,6 +146,15 @@ USB reply. New-model decoders are tested with synthetic data, not hardware captu
 
 ## Distribution plan
 
+Version **0.1.0** is prepared as a source archive and a pure-Python wheel; see
+[CHANGELOG.md](CHANGELOG.md) for features and support limits. To install a downloaded
+wheel into a Python environment:
+
+```sh
+python -m pip install /path/to/canonshuttercount-0.1.0-py3-none-any.whl
+canonshuttercount --version
+```
+
 The package builds a source archive and a pure-Python wheel. CI tests supported
 Python minors on Linux, current Python on macOS, and baseline/current Python on
 Windows. These are offline tests, not hardware support claims.
@@ -156,7 +164,7 @@ a checksummed PyUSB resource in its own environment. It will test decoding witho
 requiring a camera. A formula needs a stable release URL/checksum before publication;
 none has been published yet.
 
-See [PLAN.md](PLAN.md) for the milestones and [tests/fixtures/README.md](tests/fixtures/README.md)
+See [PLAN.md](https://github.com/jamesyc/CanonShutterCount/blob/main/PLAN.md) for the milestones and [tests/fixtures/README.md](tests/fixtures/README.md)
 for evidence provenance and the distinction between captured and synthetic tests.
 
 ## License

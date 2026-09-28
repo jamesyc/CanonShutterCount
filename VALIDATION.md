@@ -8,8 +8,8 @@
 | 20D/30D/400D saved RAM records and 300D/10D saved HC12 ring decoding | Synthetic offline checks only; no new-model hardware validation |
 | New-model live reads and recovery | Not implemented; CLI rejects before USB construction |
 | Source distribution built with Python 3.9.25 | Passed |
-| Fresh source-archive install outside checkout, Python 3.9.25 | Passed; all 61 tests, installed decoder, recovery document, automatic/explicit native backend loading |
-| Fresh source-archive install outside checkout, Python 3.14.7 | Passed; all 61 tests, installed decoder, recovery document, automatic/explicit native backend loading |
+| Fresh v0.1.0 source-archive install outside checkout, Python 3.9.25 | Passed; all 67 tests from the archive, installed decoder/version, recovery guide, and native backend loading |
+| Fresh v0.1.0 wheel install outside checkout, Python 3.14.7 | Passed; all 67 tests from the source archive, installed decoder/version, recovery guide, and native backend loading |
 | Pure-Python wheel build | Passed |
 | Source archive includes sanitized replay fixtures | Checked |
 | Package import and offline decoder without USB discovery | Tested |
@@ -22,9 +22,10 @@
 | External SIGINT against CLI process | Six signals; exit 130; no count output; PTP restored and owner unchanged |
 | Forced stop after DCP initialization | SIGKILL left DCP active; user power cycle restored PC Connect; follow-up read remained 11,536 with identical window and owner |
 | Linux/Windows hardware behavior | Unverified |
-| GitHub Actions matrix | First run failed at locked sync before tests; project-local cooldown fix passes isolated sync locally; remote rerun pending |
+| GitHub Actions matrix | All nine jobs passed in run 36425554708 for cb8e1f2 after the cooldown fix; local v0.1.0 metadata changes await their own CI run |
 | Homebrew tap installation | Pending release preparation |
 | GPLv3 packaging | Canonical LICENSE and GPL-3.0-only metadata verified in the built wheel |
+| v0.1.0 release contents | Source/wheel audited; GPLv3 text, owner guide, and source fixture provenance present; private logs/research binaries excluded; checksums saved; not published |
 | PC Connect restoration investigation | Archived by user decision; application intentionally exits to PTP |
 | Counter rollover snapshots | Upper 44 → 45, slot 4 → 5 observed; exact 0xff sample not captured |
 
