@@ -22,8 +22,9 @@
 | External SIGINT against CLI process | Six signals; exit 130; no count output; PTP restored and owner unchanged |
 | Forced stop after DCP initialization | SIGKILL left DCP active; user power cycle restored PC Connect; follow-up read remained 11,536 with identical window and owner |
 | Linux/Windows hardware behavior | Unverified |
-| GitHub Actions matrix | Configured with Linux/macOS native-backend loading checks; not executed remotely |
+| GitHub Actions matrix | First run failed at locked sync before tests; project-local cooldown fix passes isolated sync locally; remote rerun pending |
 | Homebrew tap installation | Pending release preparation |
+| GPLv3 packaging | Canonical LICENSE and GPL-3.0-only metadata verified in the built wheel |
 | PC Connect restoration investigation | Archived by user decision; application intentionally exits to PTP |
 | Counter rollover snapshots | Upper 44 → 45, slot 4 → 5 observed; exact 0xff sample not captured |
 

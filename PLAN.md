@@ -20,9 +20,13 @@ new-model live entry/read/cleanup remains unimplemented and gated. No dedicated
 20Da layout was established. None of these bodies is available for testing.
 
 **Release preparation and Homebrew packaging** follows this work. The implementation
-is still uncommitted, package metadata is `0.1.0.dev0`, no project license has been
-chosen, remote CI has not run, and no tap formula has been published. Linux and
-Windows camera behavior remains unverified.
+was committed and pushed as `260d9e5`; package metadata is still `0.1.0.dev0`.
+The user chose GPLv3, now recorded as `GPL-3.0-only` with a license file and package
+metadata. The first remote CI run failed during locked dependency sync because the
+lockfile's seven-day package cooldown existed only in the developer's user config.
+That setting is now explicit in `pyproject.toml`; isolated sync and 67 local tests
+pass. The license/configuration changes need a new commit/push and remote CI rerun.
+No tap formula has been published. Linux and Windows camera behavior remains unverified.
 
 ## Requirements and accepted decisions
 
@@ -119,7 +123,7 @@ owner → decode and report.
 - [x] Package manual owner-recovery instructions and link them from the verification error. This was completed after the initial hardware validation.
 - [x] Build source/wheel artifacts and verify fresh installs, all 61 tests, the installed decoder, and packaged guide on Python 3.9.25 and 3.14.7.
 - [x] Verify automatic and explicit libusb loading locally without application-level camera discovery. Support `CANONSHUTTERCOUNT_LIBUSB` for nonstandard installation prefixes.
-- [x] Configure CI: Python 3.9–3.14 on Linux, 3.14 on macOS, and 3.9/3.14 on Windows; native backend loading checks on Linux/macOS. Configuration is complete; remote execution is pending.
+- [x] Configure and run CI: Python 3.9–3.14 on Linux, 3.14 on macOS, and 3.9/3.14 on Windows; native backend loading checks on Linux/macOS. Initial run failed before tests at locked sync; the local configuration fix still needs remote validation.
 - [x] Accept PTP exit from both modes and archive direct PC Connect restoration research.
 
 ## Next phase: older EOS support
@@ -139,14 +143,15 @@ owner → decode and report.
 ## Following phase: release preparation
 
 1. **Choose the project license and audit release contents.**
-   - [ ] Obtain the user's license choice and add the license file/package metadata.
+   - [x] Obtain the user's license choice and add the GPLv3 license file/package metadata (`GPL-3.0-only`); verified in the built wheel.
    - [ ] Review source and fixture provenance, documentation, and distribution contents.
    - [ ] Keep private camera logs, firmware images,
      `.analysis`, virtual environments, caches, and build outputs out of version control
      and published distributions. Keep only the necessary sanitized fixtures.
 2. **Run remote CI on the reviewed implementation.**
-   - [ ] Commit the application, tests, documentation, configuration, and `uv.lock`.
-   - [ ] Push the reviewed changes and run the configured GitHub Actions matrix.
+   - [x] Commit the application, tests, documentation, configuration, and `uv.lock` (`260d9e5`).
+   - [x] Push the implementation and run the configured GitHub Actions matrix (run `36423871650`).
+   - [ ] Commit/push the GPLv3 metadata and project-local cooldown setting, then rerun CI.
    - [ ] Resolve actual platform failures and verify the installed artifacts on runners.
      Passing offline CI does not establish Linux/Windows camera support.
 3. **Create a versioned release and prepare the Homebrew tap.**
@@ -166,7 +171,8 @@ owner → decode and report.
    - [ ] Record OS, architecture, firmware, native backend version, cleanup, and owner
      results before broadening support claims. Additional cameras follow the same rule.
 
-The release-specific outstanding decision is the **project license**. Release publication
+The immediate release blocker is **passing remote CI** after the configuration fix.
+GPLv3 has been selected. Release publication
 has not been performed as part of development or this plan update.
 
 ## Development and packaging conventions

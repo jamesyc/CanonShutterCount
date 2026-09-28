@@ -153,8 +153,12 @@ Windows. These are offline tests, not hardware support claims.
 
 A future Homebrew tap formula will use Homebrew's supported Python, `libusb`, and
 a checksummed PyUSB resource in its own environment. It will test decoding without
-requiring a camera. A formula needs a stable release URL/checksum and a chosen
-project license before publication; none has been published yet.
+requiring a camera. A formula needs a stable release URL/checksum before publication;
+none has been published yet.
 
 See [PLAN.md](PLAN.md) for the milestones and [tests/fixtures/README.md](tests/fixtures/README.md)
 for evidence provenance and the distinction between captured and synthetic tests.
+
+## License
+
+GNU General Public License version 3 (`GPL-3.0-only`). See [LICENSE](LICENSE).
