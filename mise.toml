@@ -1,0 +1,17 @@
+[tools]
+python = "3.9.25"
+uv = "0.12.19"
+
+[env]
+UV_PYTHON_DOWNLOADS = "never"
+
+[tasks.sync]
+run = 'uv sync --locked --python "$(mise which python)"'
+
+[tasks.test]
+depends = ["sync"]
+run = "uv run --no-sync python -m unittest discover -s tests -v"
+
+[tasks.read]
+depends = ["sync"]
+run = "uv run --no-sync canonshuttercount"

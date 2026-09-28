@@ -1,0 +1,50 @@
+name: Offline tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        include:
+          - os: macos-latest
+            python: "3.14"
+          - os: windows-latest
+            python: "3.9"
+          - os: windows-latest
+            python: "3.14"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.12.19"
+          python-version: ${{ matrix.python }}
+      - run: uv sync --locked --no-editable
+      - name: Install native USB backend (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libusb-1.0-0
+      - name: Install native USB backend (macOS)
+        if: runner.os == 'macOS'
+        run: brew install libusb
+      - name: Check backend loading without camera discovery
+        if: runner.os != 'Windows'
+        run: uv run --no-sync python -c "from canonshuttercount.transport import USBBus; USBBus(); print('libusb backend loaded')"
+      - run: uv run --no-sync python -m unittest discover -s tests -v
+      - run: uv build
+      - name: Install source distribution and smoke-test outside checkout
+        shell: bash
+        run: |
+          uv venv "$RUNNER_TEMP/canon-installed"
+          if [ "$RUNNER_OS" = Windows ]; then
+            installed_python="$RUNNER_TEMP/canon-installed/Scripts/python.exe"
+          else
+            installed_python="$RUNNER_TEMP/canon-installed/bin/python"
+          fi
+          uv pip install --python "$installed_python" dist/*.tar.gz
+          cd "$RUNNER_TEMP"
+          "$installed_python" -I -c 'from canonshuttercount.cameras import decode_5d; assert decode_5d(bytes.fromhex("ffffff557305fd190a3c56002cdffef2ff25fcfff2ffffff")) == 11301'
+          "$installed_python" -I -m canonshuttercount --version

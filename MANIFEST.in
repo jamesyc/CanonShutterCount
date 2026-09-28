@@ -1,0 +1,3 @@
+include tools/inspect_firmware.py
+recursive-include tests *.py
+recursive-include tests/fixtures *.json *.log

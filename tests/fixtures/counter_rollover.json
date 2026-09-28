@@ -1,0 +1,23 @@
+[
+  {
+    "source_log": "read-o6t3821c",
+    "count": 11502,
+    "upper": 44,
+    "slot": 4,
+    "window_hex": "ffffff557305fd190a3c56002cdffef2ffeefcfff2ffffff"
+  },
+  {
+    "source_log": "read-myxowrqz",
+    "count": 11521,
+    "upper": 45,
+    "slot": 5,
+    "window_hex": "ffffff557305fd190a3c56002ddffef2ffee01fff2ffffff"
+  },
+  {
+    "source_log": "read-f74r5e6n",
+    "count": 11536,
+    "upper": 45,
+    "slot": 5,
+    "window_hex": "ffffff557305fd190a3c56002ddffef2ffee10fff2ffffff"
+  }
+]
