@@ -23,7 +23,7 @@
 | Forced stop after DCP initialization | SIGKILL left DCP active; user power cycle restored PC Connect; follow-up read remained 11,536 with identical window and owner |
 | Linux/Windows hardware behavior | Unverified |
 | GitHub Actions matrix | All nine jobs passed in run 36429690523 for release commit eba4937 |
-| Homebrew tap installation | Pending tap preparation |
+| Homebrew tap installation | Passed on Apple Silicon macOS: v0.1.0 install/reinstall, offline decoder/version, libusb loading without discovery, packaged recovery guide, style, and strict online audit; tap commit 1c27daa |
 | GPLv3 packaging | Canonical LICENSE and GPL-3.0-only metadata verified in the built wheel |
 | v0.1.0 release contents | Source/wheel audited; GPLv3 text, owner guide, and source fixture provenance present; private logs/research binaries excluded; published as v0.1.0; remote tag and asset digests verified against the clean-commit build |
 | PC Connect restoration investigation | Archived by user decision; application intentionally exits to PTP |

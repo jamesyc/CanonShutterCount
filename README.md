@@ -24,6 +24,18 @@ XTi / Kiss Digital X, 30D, 20D, 300D / Digital Rebel / Kiss Digital, and 10D.
 These cameras are not yet supported for live USB reads or recovery. The 20Da
 needs separate evidence and has no decoder profile.
 
+## Install with Homebrew
+
+```sh
+brew install jamesyc/tap/canonshuttercount
+canonshuttercount
+```
+
+The formula installs Python, PyUSB, and libusb. Installation and offline checks
+have passed on Apple Silicon macOS. Wait for the camera's card activity to finish
+before reading. Both Communication modes are supported; a PC Connect read leaves
+USB in Print/PTP until you power-cycle the camera.
+
 ## Development with mise and uv
 
 ```sh

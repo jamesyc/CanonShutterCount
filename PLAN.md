@@ -14,7 +14,7 @@ for the older-camera decoders. The previous 61-test
 baseline also passed fresh source-archive installations outside the checkout. Live interruption
 and stale-session checks are recorded in [VALIDATION.md](VALIDATION.md).
 
-Release **v0.1.0 is published**. The next packaging step is the Homebrew tap.
+Release **v0.1.0 and the Homebrew tap formula are published**.
 Offline decoding is implemented for 20D, 30D, 400D, 300D, and 10D;
 new-model live entry/read/cleanup remains unimplemented and gated. No dedicated
 20Da layout was established. None of these bodies is available for testing.
@@ -25,8 +25,10 @@ The [published release](https://github.com/jamesyc/CanonShutterCount/releases/ta
 includes the source archive, wheel, and `SHA256SUMS`. Artifacts were built from a
 clean archive of that commit; fresh installations passed all 67 tests on Python
 3.9/3.14, and published asset digests match the verified local files.
-No Homebrew tap has been published. Older-model live support and Linux/Windows
-camera validation remain separate unfinished work.
+The `jamesyc/tap/canonshuttercount` formula is published in tap commit `1c27daa`.
+Installation, offline decoding, native backend loading, recovery-guide checks,
+`brew style`, and `brew audit --strict --online` passed on Apple Silicon macOS.
+Older-model live support and Linux/Windows camera validation remain unfinished.
 
 ## Requirements and accepted decisions
 
@@ -140,7 +142,7 @@ owner → decode and report.
   Tell the user when its implementation is ready for manual testing; offline
   decoding alone does not meet that milestone.
 
-## Current phase: Homebrew tap preparation
+## Release and Homebrew packaging completed; remaining validation
 
 1. **Choose the project license and audit release contents.**
    - [x] Obtain the user's license choice and add the GPLv3 license file/package metadata (`GPL-3.0-only`); verified in the built wheel.
@@ -160,13 +162,13 @@ owner → decode and report.
    - [x] Build/audit `dist/canonshuttercount-0.1.0.tar.gz` and `dist/canonshuttercount-0.1.0-py3-none-any.whl`; record their hashes in `dist/SHA256SUMS`.
    - [x] Install the source archive under Python 3.9.25 and wheel under Python 3.14.7 outside the checkout; run all 67 tests from the source archive and verify version, decoder, owner guide, and backend loading.
    - [x] Tag the verified release commit as v0.1.0 and publish the source/wheel/checksum assets; remote tag and asset digests verified.
-   - [ ] Write the tap formula with Homebrew's supported Python, libusb, and a checksummed
+   - [x] Write the tap formula with Homebrew's supported Python, libusb, and a checksummed
      PyUSB resource installed in an isolated environment.
-   - [ ] Select the formula's native library through `CANONSHUTTERCOUNT_LIBUSB` when
+   - [x] Select the formula's native library through `CANONSHUTTERCOUNT_LIBUSB` when
      needed, rather than assuming a particular Homebrew prefix.
-   - [ ] Test formula installation, the installed decoder/command, and native backend
+   - [x] Test formula installation, the installed decoder/command, and native backend
      loading without a camera. Verify that the owner-recovery guide is installed.
-   - [ ] Publish the reviewed tap. A later homebrew/core submission is separate.
+   - [x] Publish the reviewed tap. A later homebrew/core submission is separate.
 4. **Expand hardware validation when those environments are available.**
    - [ ] Test the actual 5D from both modes on Linux, including scoped USB permissions
      for `3101`, `3102`, and `3086`.
@@ -174,8 +176,8 @@ owner → decode and report.
    - [ ] Record OS, architecture, firmware, native backend version, cleanup, and owner
      results before broadening support claims. Additional cameras follow the same rule.
 
-The release is published. Next: prepare and test the Homebrew tap formula using
-the published v0.1.0 source archive and its verified checksum.
+The release and tap are published. Remaining work is platform/hardware validation
+and additional camera implementations; a homebrew/core submission is separate.
 
 ## Development and packaging conventions
 
