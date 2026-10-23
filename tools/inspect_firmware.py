@@ -1,7 +1,7 @@
 """Offline ARM firmware inspection; requires capstone only in the analysis environment.
 
 Pass the reference image explicitly. This tool never accesses a camera.
-Example: uv run --no-project --with capstone==5.0.9 python tools/inspect_firmware.py IMAGE --range 0xff9d7320:0xff9d73f0
+Example: uv run --no-project --with 'capstone==5.*' python tools/inspect_firmware.py IMAGE --range 0xff9d7320:0xff9d73f0
 """
 
 import argparse
