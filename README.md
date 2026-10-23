@@ -42,16 +42,29 @@ USB in Print/PTP until you power-cycle the camera.
 cd ~/git/CanonShutterCount
 mise trust
 mise install
+mise exec -- env UV_PYTHON_DOWNLOADS=manual uv python install 3.15
 mise run test
 ```
 
-mise selects Python 3.9.25 and uv. uv creates `.venv` from the checked-in lockfile;
-the sync task explicitly uses mise's Python and disables uv Python downloads.
+mise manages uv; uv manages the development Python 3.15 interpreter and creates
+`.venv` from the checked-in lockfile. The sync task explicitly selects Python 3.15
+and disables automatic Python downloads, so install the interpreter with the
+explicit command above first. The application supports Python 3.9 and newer.
 Unit tests use `unittest` and never open a camera or require native libusb.
+
+To upgrade the locked PyUSB version within the declared `>=1.3.1,<2` range:
+
+```sh
+mise exec -- uv lock --upgrade-package pyusb
+mise run test
+```
+
+Commit the updated lockfile with dependency changes. A wider dependency range
+permits upgrades; uv retains the locked version until explicitly upgraded.
 
 ## Manual camera testing
 
-The only Python runtime dependency is PyUSB 1.3.1. Live reads also require native
+The only Python runtime dependency is PyUSB (`>=1.3.1,<2`). Live reads also require native
 libusb 1.0. There is no gphoto2 dependency or C bridge.
 
 On macOS, install the native runtime if it is missing:

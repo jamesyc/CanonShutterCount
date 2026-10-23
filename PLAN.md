@@ -181,8 +181,9 @@ and additional camera implementations; a homebrew/core submission is separate.
 
 ## Development and packaging conventions
 
-- `mise.toml` selects development tools; uv uses mise's interpreter explicitly with
-  automatic Python downloads disabled for that workflow.
+- `mise.toml` manages uv; uv manages the development Python 3.15 interpreter.
+  Install it explicitly before syncing; automatic Python downloads are disabled
+  for the sync workflow. The application supports Python 3.9 and newer.
 - `pyproject.toml` owns package metadata, Python minimum, dependencies, and console entry point.
 - `uv.lock` records development resolution. Homebrew resources separately pin source
   versions and checksums; they do not depend on the developer's virtual environment.
